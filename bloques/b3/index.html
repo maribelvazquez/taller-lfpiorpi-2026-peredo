@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RÉGIMEN DE SANCIONES LFPIORPI</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {--navy:#0D2137;--navy2:#1C3557;--accent:#166534;--cream:#FDF8F0;--muted:rgba(255,255,255,.4);}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'IBM Plex Sans',sans-serif;background:var(--navy);color:var(--cream);height:100vh;display:flex;flex-direction:column;overflow:hidden;}
+  header{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;border-bottom:1px solid rgba(255,255,255,.1);flex-shrink:0;gap:12px;flex-wrap:wrap;}
+  .hd-left{display:flex;align-items:center;gap:14px;}
+  .hd-pill{padding:4px 12px;border-radius:20px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;font-weight:600;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:var(--accent);}
+  .hd-title{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;}
+  .hd-sub{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:1px;}
+  .home-btn{padding:7px 16px;border:1px solid rgba(255,255,255,.2);border-radius:6px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1px;color:var(--muted);text-decoration:none;transition:all .2s;white-space:nowrap;}
+  .home-btn:hover{border-color:var(--accent);color:var(--accent);}
+  .main{display:flex;flex:1;overflow:hidden;}
+  .slide-area{flex:1;display:flex;flex-direction:column;overflow:hidden;background:#070f1a;}
+  .slide-container{flex:1;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+  .slide{display:none;max-width:100%;max-height:100%;object-fit:contain;}
+  .slide.active{display:block;}
+  .nav-bar{display:flex;align-items:center;justify-content:center;gap:16px;padding:12px 20px;background:rgba(0,0,0,.4);flex-shrink:0;border-top:1px solid rgba(255,255,255,.06);}
+  .nav-btn{padding:8px 24px;border:1px solid rgba(255,255,255,.2);border-radius:6px;background:transparent;color:var(--cream);font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:1px;cursor:pointer;transition:all .15s;}
+  .nav-btn:hover:not(:disabled){border-color:var(--accent);color:var(--accent);}
+  .nav-btn:disabled{opacity:.25;cursor:default;}
+  .counter{font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;color:var(--accent);min-width:80px;text-align:center;}
+  .progress-bar{height:3px;background:rgba(255,255,255,.08);flex:1;max-width:300px;border-radius:2px;overflow:hidden;}
+  .progress-fill{height:100%;background:var(--accent);border-radius:2px;transition:width .3s;}
+  .side-panel{width:200px;flex-shrink:0;overflow-y:auto;border-left:1px solid rgba(255,255,255,.07);background:rgba(0,0,0,.2);padding:12px 8px;display:flex;flex-direction:column;gap:6px;}
+  .side-panel::-webkit-scrollbar{width:4px;}
+  .side-panel::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:2px;}
+  .side-label{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:2px;color:rgba(255,255,255,.25);padding:4px 4px 8px;text-transform:uppercase;text-align:center;}
+  .thumb{border:2px solid transparent;border-radius:6px;overflow:hidden;cursor:pointer;position:relative;transition:all .15s;flex-shrink:0;}
+  .thumb:hover{border-color:rgba(255,255,255,.3);}
+  .thumb.active{border-color:var(--accent);}
+  .thumb img{width:100%;display:block;}
+  .thumb span{position:absolute;bottom:4px;right:6px;font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:600;color:rgba(255,255,255,.7);background:rgba(0,0,0,.6);padding:1px 5px;border-radius:3px;}
+  @media(max-width:640px){.side-panel{display:none;}}
+</style>
+</head>
+<body>
+<header>
+  <div class="hd-left">
+    <span class="hd-pill">BLOQUE III · SANCIONES & BLINDAJE</span>
+    <div><div class="hd-title">RÉGIMEN DE SANCIONES LFPIORPI</div><div class="hd-sub">LFPIORPI DOF 16-07-2025 · 10 SLIDES</div></div>
+  </div>
+  <a class="home-btn" href="../../index.html">← INICIO</a>
+</header>
+<div class="main">
+  <div class="slide-area">
+    <div class="slide-container"><img class="slide" id="s0" src="slides/slide-01.jpg" alt="Slide 1" loading="lazy">
+    <img class="slide" id="s1" src="slides/slide-02.jpg" alt="Slide 2" loading="lazy">
+    <img class="slide" id="s2" src="slides/slide-03.jpg" alt="Slide 3" loading="lazy">
+    <img class="slide" id="s3" src="slides/slide-04.jpg" alt="Slide 4" loading="lazy">
+    <img class="slide" id="s4" src="slides/slide-05.jpg" alt="Slide 5" loading="lazy">
+    <img class="slide" id="s5" src="slides/slide-06.jpg" alt="Slide 6" loading="lazy">
+    <img class="slide" id="s6" src="slides/slide-07.jpg" alt="Slide 7" loading="lazy">
+    <img class="slide" id="s7" src="slides/slide-08.jpg" alt="Slide 8" loading="lazy">
+    <img class="slide" id="s8" src="slides/slide-09.jpg" alt="Slide 9" loading="lazy">
+    <img class="slide" id="s9" src="slides/slide-10.jpg" alt="Slide 10" loading="lazy">
+    </div>
+    <div class="nav-bar">
+      <button class="nav-btn" id="btnPrev" onclick="prev()">◀ ANTERIOR</button>
+      <div class="progress-bar"><div class="progress-fill" id="pbar"></div></div>
+      <div class="counter" id="counter">1 / 10</div>
+      <div class="progress-bar"><div class="progress-fill" id="pbar2"></div></div>
+      <button class="nav-btn" id="btnNext" onclick="next()">SIGUIENTE ▶</button>
+    </div>
+  </div>
+  <div class="side-panel">
+    <div class="side-label">Diapositivas</div>
+    <div class="thumb" id="t0" onclick="goto(0)"><img src="slides/slide-01.jpg" alt=""><span>1</span></div>
+    <div class="thumb" id="t1" onclick="goto(1)"><img src="slides/slide-02.jpg" alt=""><span>2</span></div>
+    <div class="thumb" id="t2" onclick="goto(2)"><img src="slides/slide-03.jpg" alt=""><span>3</span></div>
+    <div class="thumb" id="t3" onclick="goto(3)"><img src="slides/slide-04.jpg" alt=""><span>4</span></div>
+    <div class="thumb" id="t4" onclick="goto(4)"><img src="slides/slide-05.jpg" alt=""><span>5</span></div>
+    <div class="thumb" id="t5" onclick="goto(5)"><img src="slides/slide-06.jpg" alt=""><span>6</span></div>
+    <div class="thumb" id="t6" onclick="goto(6)"><img src="slides/slide-07.jpg" alt=""><span>7</span></div>
+    <div class="thumb" id="t7" onclick="goto(7)"><img src="slides/slide-08.jpg" alt=""><span>8</span></div>
+    <div class="thumb" id="t8" onclick="goto(8)"><img src="slides/slide-09.jpg" alt=""><span>9</span></div>
+    <div class="thumb" id="t9" onclick="goto(9)"><img src="slides/slide-10.jpg" alt=""><span>10</span></div>
+    
+  </div>
+</div>
+<script>
+const N=10;let cur=0;
+function update(){
+  document.querySelectorAll('.slide').forEach((s,i)=>s.classList.toggle('active',i===cur));
+  document.querySelectorAll('.thumb').forEach((t,i)=>t.classList.toggle('active',i===cur));
+  document.getElementById('counter').textContent=(cur+1)+' / '+N;
+  const pct=((cur+1)/N*100)+'%';
+  document.getElementById('pbar').style.width=pct;
+  document.getElementById('pbar2').style.width=pct;
+  document.getElementById('btnPrev').disabled=cur===0;
+  document.getElementById('btnNext').disabled=cur===N-1;
+  const t=document.getElementById('t'+cur);if(t)t.scrollIntoView({block:'nearest'});
+}
+function next(){if(cur<N-1){cur++;update();}}
+function prev(){if(cur>0){cur--;update();}}
+function goto(i){cur=i;update();}
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key==='ArrowDown')next();
+  if(e.key==='ArrowLeft'||e.key==='ArrowUp')prev();
+});
+update();
+</script>
+</body>
+</html>
