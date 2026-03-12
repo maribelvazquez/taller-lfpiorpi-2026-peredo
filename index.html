@@ -2,440 +2,580 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Taller LFPIORPI 2026</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --navy:    #0D2137;
-    --navy2:   #1C3557;
-    --blue:    #2E5A8E;
-    --red:     #B91C1C;
-    --darkred: #7F1D1D;
-    --amber:   #D97706;
-    --green:   #166534;
-    --teal:    #0E7490;
-    --cream:   #FDF8F0;
-    --lgray:   #F5F7FA;
-  }
+:root {
+  --navy: #0D2137;
+  --navy2: #0a1a2e;
+  --amber: #D97706;
+  --teal: #0E7490;
+  --red: #B91C1C;
+  --green: #166534;
+  --cream: #F1EDE6;
+  --muted: rgba(255,255,255,.35);
+  --border: rgba(255,255,255,.08);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+  background: var(--navy2);
+  color: var(--cream);
+  min-height: 100dvh;
+}
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+/* HERO */
+.hero {
+  background: linear-gradient(135deg, #0D2137 0%, #0a2540 60%, #061525 100%);
+  border-bottom: 2px solid var(--amber);
+  padding: 28px 20px 22px;
+  text-align: center;
+}
+.hero-eyebrow {
+  font-size: 10px; letter-spacing: 3px; color: var(--amber);
+  text-transform: uppercase; margin-bottom: 10px;
+}
+.hero h1 {
+  font-size: clamp(22px, 6vw, 38px);
+  font-weight: 800; letter-spacing: -0.5px;
+  line-height: 1.1; margin-bottom: 8px;
+}
+.hero h1 span { color: var(--amber); }
+.hero-sub {
+  font-size: 12px; color: var(--muted); line-height: 1.5;
+  max-width: 520px; margin: 0 auto 14px;
+}
+.hero-tag {
+  display: inline-block;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 10px; letter-spacing: 1px; color: var(--amber);
+  margin: 3px;
+}
 
-  body {
-    font-family: 'IBM Plex Sans', sans-serif;
-    background: var(--navy);
-    color: var(--cream);
-    min-height: 100vh;
-    padding: 0 16px 60px;
-    position: relative;
-  }
+/* TABS NAV */
+.tabs-nav {
+  display: flex; overflow-x: auto; gap: 0;
+  background: rgba(0,0,0,.4);
+  border-bottom: 1px solid var(--border);
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.tabs-nav::-webkit-scrollbar { display: none; }
+.tab-btn {
+  flex-shrink: 0;
+  padding: 13px 16px;
+  font-size: 11px; font-weight: 600; letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: transparent; border: none;
+  border-bottom: 3px solid transparent;
+  cursor: pointer; transition: all .2s;
+  white-space: nowrap;
+}
+.tab-btn:hover { color: var(--cream); }
+.tab-btn.active { color: var(--amber); border-bottom-color: var(--amber); }
 
-  body::before {
-    content: '';
-    position: fixed; inset: 0;
-    background-image:
-      repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,0.025) 39px, rgba(255,255,255,0.025) 40px),
-      repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,0.025) 39px, rgba(255,255,255,0.025) 40px);
-    pointer-events: none; z-index: 0;
-  }
+/* PANELS */
+.tab-panel { display: none; padding: 20px; max-width: 900px; margin: 0 auto; }
+.tab-panel.active { display: block; }
 
-  .wrap {
-    max-width: 860px; margin: 0 auto;
-    position: relative; z-index: 1;
-  }
+/* SECTION */
+.section-label {
+  font-size: 9px; letter-spacing: 3px; color: var(--amber);
+  text-transform: uppercase; margin-bottom: 14px;
+  border-left: 3px solid var(--amber); padding-left: 10px;
+}
 
-  /* ── HERO ── */
-  .hero {
-    padding: 48px 0 36px;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    margin-bottom: 40px;
-  }
+/* CARDS */
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin-bottom: 28px; }
+.card {
+  background: rgba(255,255,255,.04);
+  border: 1px solid var(--border);
+  border-radius: 10px; padding: 18px;
+  display: flex; flex-direction: column; gap: 10px;
+  transition: border-color .2s;
+}
+.card:hover { border-color: rgba(255,255,255,.18); }
+.card-icon { font-size: 26px; }
+.card-title { font-size: 14px; font-weight: 700; line-height: 1.2; }
+.card-desc { font-size: 11px; color: var(--muted); line-height: 1.5; flex: 1; }
+.play-btn {
+  display: inline-block; text-decoration: none;
+  padding: 9px 16px; border-radius: 7px;
+  font-size: 11px; font-weight: 700; letter-spacing: 1px;
+  text-align: center;
+  background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.2);
+  color: var(--cream); transition: all .15s;
+}
+.play-btn:hover { background: rgba(255,255,255,.14); }
 
-  .brand-line {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px; letter-spacing: 3px;
-    color: rgba(255,255,255,0.35);
-    text-transform: uppercase;
-    margin-bottom: 16px;
-  }
+/* TOOL CARD */
+.tool-card {
+  background: rgba(255,255,255,.04); border: 1px solid var(--border);
+  border-radius: 10px; padding: 20px;
+  display: flex; flex-direction: column; gap: 12px;
+  margin-bottom: 16px;
+}
+.tool-card h3 { font-size: 16px; font-weight: 700; }
+.tool-card p { font-size: 12px; color: var(--muted); line-height: 1.6; }
 
-  .hero h1 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(36px, 6vw, 64px);
-    letter-spacing: 4px; line-height: 1;
-    margin-bottom: 8px;
-  }
+/* TABLES */
+.tbl-wrap { overflow-x: auto; margin-bottom: 20px; }
+table.ref {
+  width: 100%; border-collapse: collapse;
+  font-size: 12px;
+}
+table.ref th {
+  background: rgba(255,255,255,.05);
+  padding: 10px 12px; text-align: left;
+  font-size: 9px; letter-spacing: 1.5px; color: var(--amber);
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+table.ref td {
+  padding: 9px 12px;
+  border-bottom: 1px solid rgba(255,255,255,.04);
+  vertical-align: top; line-height: 1.4;
+}
+table.ref tr:hover td { background: rgba(255,255,255,.03); }
+.frac { font-weight: 800; color: var(--amber); font-size: 13px; white-space: nowrap; }
+.chip {
+  display: inline-block; font-size: 9px; font-weight: 700;
+  padding: 2px 8px; border-radius: 10px; letter-spacing: 1px;
+  margin: 1px;
+}
+.chip-green { background: rgba(34,197,94,.15); color: #4ade80; border: 1px solid rgba(34,197,94,.2); }
+.chip-red   { background: rgba(239,68,68,.12); color: #f87171; border: 1px solid rgba(239,68,68,.2); }
+.chip-amber { background: rgba(217,119,6,.15); color: #fbbf24; border: 1px solid rgba(217,119,6,.2); }
+.chip-teal  { background: rgba(14,116,144,.15); color: #22d3ee; border: 1px solid rgba(14,116,144,.2); }
+.chip-purple{ background: rgba(168,85,247,.12); color: #c084fc; border: 1px solid rgba(168,85,247,.2); }
+.nota { font-size: 10px; color: rgba(255,255,255,.25); line-height: 1.6; margin-top: 10px; }
 
-  .hero h1 span { color: var(--amber); }
+/* SANCTION LEVELS */
+.lvl-row-1 td { background: rgba(34,197,94,.04); }
+.lvl-row-2 td { background: rgba(251,146,60,.05); }
+.lvl-row-3 td { background: rgba(239,68,68,.07); }
+.lvl-special td { background: rgba(168,85,247,.06); }
+.lvl-green td { background: rgba(34,197,94,.06); }
+.lvl-penal td { background: rgba(239,68,68,.1); }
 
-  .hero-sub {
-    font-size: 15px; color: rgba(255,255,255,0.55);
-    margin-bottom: 24px; line-height: 1.6;
-  }
+/* FOOTER */
+footer {
+  text-align: center; padding: 20px;
+  font-size: 10px; color: rgba(255,255,255,.18);
+  letter-spacing: 1px; border-top: 1px solid var(--border);
+  margin-top: 20px;
+}
 
-  .tags {
-    display: flex; flex-wrap: wrap; gap: 8px;
-  }
-
-  .tag {
-    padding: 4px 12px;
-    border: 1px solid rgba(255,255,255,0.15);
-    border-radius: 20px;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 10px; letter-spacing: 1px;
-    color: rgba(255,255,255,0.5);
-  }
-
-  .tag.hi { border-color: var(--amber); color: var(--amber); }
-
-  /* ── SECCIÓN ── */
-  .section-label {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 13px; letter-spacing: 4px;
-    color: rgba(255,255,255,0.3);
-    text-transform: uppercase;
-    margin-bottom: 16px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid rgba(255,255,255,0.07);
-  }
-
-  .section { margin-bottom: 40px; }
-
-  /* ── CARDS ── */
-  .cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 14px;
-  }
-
-  .card {
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.09);
-    border-radius: 10px;
-    padding: 20px 22px;
-    transition: all 0.2s ease;
-    text-decoration: none;
-    display: flex; flex-direction: column; gap: 8px;
-    cursor: default;
-  }
-
-  .card.link {
-    cursor: pointer;
-  }
-
-  .card.link:hover {
-    background: rgba(255,255,255,0.08);
-    border-color: rgba(255,255,255,0.2);
-    transform: translateY(-2px);
-  }
-
-  .card-icon {
-    font-size: 22px; margin-bottom: 2px;
-  }
-
-  .card-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 18px; letter-spacing: 1px;
-    color: var(--cream);
-  }
-
-  .card-desc {
-    font-size: 12px; line-height: 1.5;
-    color: rgba(255,255,255,0.5);
-    flex: 1;
-  }
-
-  .card-meta {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 10px; letter-spacing: 1px;
-    color: rgba(255,255,255,0.25);
-    margin-top: 4px;
-  }
-
-  .card-badge {
-    display: inline-block;
-    padding: 2px 8px;
-    border-radius: 4px;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 9px; letter-spacing: 1px;
-    font-weight: 600;
-  }
-
-  .badge-word  { background: rgba(46,90,142,0.3); color: #93C5FD; border: 1px solid rgba(46,90,142,0.5); }
-  .badge-excel { background: rgba(22,101,52,0.3); color: #86EFAC; border: 1px solid rgba(22,101,52,0.5); }
-  .badge-html  { background: rgba(217,119,6,0.3); color: #FCD34D; border: 1px solid rgba(217,119,6,0.5); }
-
-  /* Card especial para el juego */
-  .card.game {
-    border-color: rgba(217,119,6,0.3);
-    background: rgba(217,119,6,0.06);
-  }
-
-  .card.game:hover {
-    border-color: var(--amber);
-    background: rgba(217,119,6,0.12);
-  }
-
-  .play-btn {
-    display: inline-flex; align-items: center; gap: 8px;
-    margin-top: 8px;
-    padding: 8px 18px;
-    background: var(--amber);
-    border-radius: 6px;
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 15px; letter-spacing: 2px;
-    color: var(--navy);
-    text-decoration: none;
-    transition: all 0.2s ease;
-    width: fit-content;
-  }
-
-  .play-btn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 16px rgba(217,119,6,0.4);
-  }
-
-  /* ── TABLA TEMARIO ── */
-  .temario {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 13px;
-  }
-
-  .temario th {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 10px; letter-spacing: 2px;
-    color: rgba(255,255,255,0.4);
-    text-align: left;
-    padding: 8px 12px;
-    border-bottom: 1px solid rgba(255,255,255,0.08);
-    text-transform: uppercase;
-  }
-
-  .temario td {
-    padding: 10px 12px;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-    color: rgba(255,255,255,0.75);
-    vertical-align: middle;
-  }
-
-  .temario tr:last-child td { border-bottom: none; }
-
-  .temario tr:hover td { background: rgba(255,255,255,0.03); }
-
-  .t-bloque {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 15px; letter-spacing: 1px;
-    color: var(--amber);
-    white-space: nowrap;
-  }
-
-  .t-tiempo {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px; color: rgba(255,255,255,0.35);
-    white-space: nowrap;
-    text-align: right;
-  }
-
-  /* ── FOOTER ── */
-  footer {
-    border-top: 1px solid rgba(255,255,255,0.07);
-    padding-top: 24px; margin-top: 20px;
-    display: flex; justify-content: space-between; align-items: center;
-    flex-wrap: wrap; gap: 8px;
-  }
-
-  footer span {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 10px; letter-spacing: 1px;
-    color: rgba(255,255,255,0.2);
-  }
+@media(max-width: 500px) {
+  .tab-btn { padding: 12px 11px; font-size: 10px; }
+  .tab-panel { padding: 16px; }
+  table.ref th, table.ref td { padding: 7px 8px; font-size: 11px; }
+}
 </style>
 </head>
 <body>
-<div class="wrap">
 
-  <!-- HERO -->
-  <div class="hero">
-    <h1>TALLER <span>LFPIORPI</span> 2026</h1>
-    <p class="hero-sub">
-      Materiales de capacitación ejecutiva · Ley Federal para la Prevención e Identificación<br>
-      de Operaciones con Recursos de Procedencia Ilícita · DOF 16-07-2025
-    </p>
-    <div class="tags">
-      <span class="tag hi">UMA 2026 = $117.31/día</span>
-      <span class="tag">GMC360 / 360EDUCA</span>
-      <span class="tag">Maribel Vázquez Menchaca</span>
-    </div>
-  </div>
-
-  <!-- TABLA DE SANCIONES -->
-  <div class="section">
-    <div class="section-label">Tabla de Sanciones — Arts. 52–62 LFPIORPI</div>
-
-    <div style="overflow-x:auto;">
-    <table class="temario" style="width:100%;">
-      <thead>
-        <tr>
-          <th style="text-align:left">Nivel</th>
-          <th style="text-align:left">Infracción (Art. 53)</th>
-          <th style="text-align:right">Mín. UMA</th>
-          <th style="text-align:right">Máx. UMA</th>
-          <th style="text-align:right">Mín. $MXN</th>
-          <th style="text-align:right">Máx. $MXN</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr style="background:rgba(34,197,94,.06)">
-          <td class="t-bloque" rowspan="4" style="color:#4ade80;vertical-align:middle">N1</td>
-          <td>Aviso tardío (presentado fuera de plazo)</td>
-          <td class="t-tiempo">200</td><td class="t-tiempo">2,000</td>
-          <td class="t-tiempo">$23,462</td><td class="t-tiempo">$234,620</td>
-        </tr>
-        <tr style="background:rgba(34,197,94,.06)">
-          <td>Aviso con errores u omisiones de forma</td>
-          <td class="t-tiempo">200</td><td class="t-tiempo">2,000</td>
-          <td class="t-tiempo">$23,462</td><td class="t-tiempo">$234,620</td>
-        </tr>
-        <tr style="background:rgba(34,197,94,.06)">
-          <td>Aviso incompleto (datos faltantes no esenciales)</td>
-          <td class="t-tiempo">200</td><td class="t-tiempo">2,000</td>
-          <td class="t-tiempo">$23,462</td><td class="t-tiempo">$234,620</td>
-        </tr>
-        <tr style="background:rgba(34,197,94,.06)">
-          <td>Incumplimiento de requerimientos de la SHCP (Art. 53 Fracc. I)</td>
-          <td class="t-tiempo">200</td><td class="t-tiempo">2,000</td>
-          <td class="t-tiempo">$23,462</td><td class="t-tiempo">$234,620</td>
-        </tr>
-
-        <tr style="background:rgba(251,146,60,.07)">
-          <td class="t-bloque" rowspan="5" style="color:#fb923c;vertical-align:middle">N2</td>
-          <td>Omisión total de aviso (no presentado)</td>
-          <td class="t-tiempo">2,000</td><td class="t-tiempo">10,000</td>
-          <td class="t-tiempo">$234,620</td><td class="t-tiempo">$1,173,100</td>
-        </tr>
-        <tr style="background:rgba(251,146,60,.07)">
-          <td>Falta de identificación del cliente (Art. 18 Fracc. I)</td>
-          <td class="t-tiempo">2,000</td><td class="t-tiempo">10,000</td>
-          <td class="t-tiempo">$234,620</td><td class="t-tiempo">$1,173,100</td>
-        </tr>
-        <tr style="background:rgba(251,146,60,.07)">
-          <td>Falta de identificación del Beneficiario Controlador</td>
-          <td class="t-tiempo">2,000</td><td class="t-tiempo">10,000</td>
-          <td class="t-tiempo">$234,620</td><td class="t-tiempo">$1,173,100</td>
-        </tr>
-        <tr style="background:rgba(251,146,60,.07)">
-          <td>Ausencia de Oficial de Cumplimiento designado</td>
-          <td class="t-tiempo">2,000</td><td class="t-tiempo">10,000</td>
-          <td class="t-tiempo">$234,620</td><td class="t-tiempo">$1,173,100</td>
-        </tr>
-        <tr style="background:rgba(251,146,60,.07)">
-          <td>Sin manual de políticas / criterios / capacitación / auditoría</td>
-          <td class="t-tiempo">2,000</td><td class="t-tiempo">10,000</td>
-          <td class="t-tiempo">$234,620</td><td class="t-tiempo">$1,173,100</td>
-        </tr>
-
-        <tr style="background:rgba(239,68,68,.1)">
-          <td class="t-bloque" rowspan="2" style="color:#f87171;vertical-align:middle">N3</td>
-          <td>Omisión total reiterada / acumulada de avisos</td>
-          <td class="t-tiempo">10,000</td><td class="t-tiempo">65,000</td>
-          <td class="t-tiempo">$1,173,100</td><td class="t-tiempo">$7,625,150</td>
-        </tr>
-        <tr style="background:rgba(239,68,68,.1)">
-          <td>Cobro de efectivo sobre umbral Art. 32 (prohibición absoluta)<br>
-            <span style="font-size:10px;color:rgba(255,255,255,.4)">⚠ Se aplica el mayor entre 65,000 UMA o 10–100% del valor de la operación</span>
-          </td>
-          <td class="t-tiempo">10,000</td><td class="t-tiempo">65,000</td>
-          <td class="t-tiempo">$1,173,100</td><td class="t-tiempo">$7,625,150</td>
-        </tr>
-
-        <tr style="background:rgba(168,85,247,.08)">
-          <td class="t-bloque" style="color:#c084fc">54 Bis</td>
-          <td>Suspensión temporal de operaciones con el cliente investigado<br>
-            <span style="font-size:10px;color:rgba(255,255,255,.4)">Medida cautelar nueva 2025 — puede aplicarse antes de resolución final</span>
-          </td>
-          <td class="t-tiempo" colspan="4" style="text-align:center;color:rgba(255,255,255,.5)">Medida no monetaria — bloqueo operativo inmediato</td>
-        </tr>
-
-        <tr style="background:rgba(34,197,94,.08)">
-          <td class="t-bloque" style="color:#4ade80">Art. 55</td>
-          <td>Cumplimiento espontáneo — 1ª vez antes de verificación SHCP</td>
-          <td class="t-tiempo" colspan="4" style="text-align:center;color:#4ade80;font-weight:600">✓ 100% condonado · Subsecuentes: −50% de reducción</td>
-        </tr>
-
-        <tr style="background:rgba(239,68,68,.12)">
-          <td class="t-bloque" style="color:#f87171">Art. 62</td>
-          <td>Falsedad en información presentada a la SHCP (Delito Penal)</td>
-          <td class="t-tiempo" colspan="4" style="text-align:center;color:#f87171;font-weight:600">Prisión 2–8 años + multa penal para directivos</td>
-        </tr>
-      </tbody>
-    </table>
-    </div>
-
-    <p style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:rgba(255,255,255,.25);margin-top:12px;line-height:1.6;">
-      UMA 2026 = $117.31/día · DOF 31-01-2026. Los montos en pesos son referenciales; el cálculo exacto se realiza con la UMA vigente al momento de la resolución.<br>
-      Art. 54: cada infracción se computa de forma <strong style="color:rgba(255,255,255,.5)">independiente</strong> — un error repetido en 10 avisos equivale a 10 multas acumulables.
-    </p>
-  </div>
-
-  <!-- HERRAMIENTAS WEB -->
-  <div class="section">
-    <div class="section-label">Herramientas interactivas</div>
-    <div class="cards">
-      <div class="card game">
-        <div class="card-icon">🧮</div>
-        <div class="card-title">Calculadora de Sanciones</div>
-        <div class="card-desc">Selecciona la obligación incumplida del Art. 18, número de infracciones y valor de la operación. Calcula multa con y sin Art. 55. Incluye tabla de umbrales de todas las fracciones del Art. 17.</div>
-        <a class="play-btn" href="calculadora/index.html">▶  ABRIR</a>
-      </div>
-      <div class="card game">
-        <div class="card-icon">🎯</div>
-        <div class="card-title">Ahorcado LFPIORPI</div>
-        <div class="card-desc">10 términos clave con dificultad progresiva: AVISO, UMBRAL, EFECTIVO, EXPEDIENTE, SANCION, FRACCION, CONTROLADOR, BENEFICIARIO, REINCIDENCIA, FIDEICOMISO.</div>
-        <a class="play-btn" href="juegos/Ahorcado_LFPIORPI_2026.html">▶  JUGAR AHORA</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- BLOQUES -->
-  <div class="section">
-    <div class="section-label">Presentaciones del taller</div>
-    <div class="cards">
-      <div class="card">
-        <div class="card-icon">🌐</div>
-        <div class="card-title">Bloque 0 · GAFI 2026</div>
-        <div class="card-desc">México en la Mira. Evaluación GAFI 9–27 marzo 2026, riesgo de Lista Gris, costo macroeconómico y el nuevo paradigma de defensa corporativa. 11 diapositivas.</div>
-        <a class="play-btn" style="background:#D97706;color:#0D2137;border:none;" href="bloques/b0/index.html">▶  VER PRESENTACIÓN</a>
-      </div>
-      <div class="card">
-        <div class="card-icon">📖</div>
-        <div class="card-title">Bloque I · Nuevo Paradigma</div>
-        <div class="card-desc">De Espectador a Actor de Inteligencia Financiera. 5 ejes de la reforma, BC al 25%, Art. 18 Fracc. I–XI, EBR y Ventana de 24 Horas. 13 diapositivas.</div>
-        <a class="play-btn" style="background:#0E7490;color:#fff;border:none;" href="bloques/b1/index.html">▶  VER PRESENTACIÓN</a>
-      </div>
-      <div class="card">
-        <div class="card-icon">🏢</div>
-        <div class="card-title">Bloque II · Fracciones del Grupo</div>
-        <div class="card-desc">Análisis ejecutivo de riesgo por fracción: Vehículos (Fracc. VIII), Inmobiliario (V/V Bis), Créditos (IV), Tarjetas (II). Protocolo 9 pasos, señales de alerta, casos prácticos. 11 diapositivas.</div>
-        <a class="play-btn" style="background:#B91C1C;color:#fff;border:none;" href="bloques/b2/index.html">▶  VER PRESENTACIÓN</a>
-      </div>
-      <div class="card">
-        <div class="card-icon">⚖️</div>
-        <div class="card-title">Bloque III · Sanciones & Blindaje</div>
-        <div class="card-desc">Mapa térmico de exposición, Art. 54 Bis (guillotina operativa), Art. 55 (escudo corporativo), frontera penal Art. 62, y los 5 comportamientos inquebrantables. 10 diapositivas.</div>
-        <a class="play-btn" style="background:#166534;color:#fff;border:none;" href="bloques/b3/index.html">▶  VER PRESENTACIÓN</a>
-      </div>
-    </div>
-  </div>
-
-
-
-  <footer>
-    <span>LFPIORPI DOF 16-07-2025 · UMA 2026 = $117.31/día</span>
-    <span>GMC360 / 360EDUCA · C.P. Maribel Vázquez Menchaca</span>
-    
-  </footer>
-
+<div class="hero">
+  <div class="hero-eyebrow">Capacitación Ejecutiva · PLD/FT</div>
+  <h1>TALLER <span>LFPIORPI</span> 2026</h1>
+  <p class="hero-sub">Ley Federal para la Prevención e Identificación de Operaciones con Recursos de Procedencia Ilícita · DOF 16-07-2025</p>
+  <span class="hero-tag">UMA 2026 = $117.31/día</span>
+  <span class="hero-tag">DOF 16-07-2025</span>
+  <span class="hero-tag">GMC360 / 360EDUCA</span>
 </div>
+
+<nav class="tabs-nav">
+  <button class="tab-btn active" onclick="showTab('pres')">📊 Presentaciones</button>
+  <button class="tab-btn" onclick="showTab('calc')">🧮 Calculadora</button>
+  <button class="tab-btn" onclick="showTab('juego')">🎯 Ahorcado</button>
+  <button class="tab-btn" onclick="showTab('act')">📋 Actividades Art.17</button>
+  <button class="tab-btn" onclick="showTab('ob18')">⚖️ Obligaciones Art.18</button>
+  <button class="tab-btn" onclick="showTab('sanc')">🚨 Sanciones</button>
+</nav>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- TAB 1: PRESENTACIONES                  -->
+<!-- ═══════════════════════════════════════ -->
+<div id="tab-pres" class="tab-panel active">
+  <br>
+  <div class="section-label">Presentaciones del taller</div>
+  <div class="cards">
+    <div class="card">
+      <div class="card-icon">🌐</div>
+      <div class="card-title">Bloque 0 · GAFI 2026</div>
+      <div class="card-desc">México en la Mira. Evaluación GAFI, riesgo de Lista Gris, costo macroeconómico y el nuevo paradigma de defensa corporativa. 11 diapositivas.</div>
+      <a class="play-btn" style="background:#D97706;color:#0D2137;border:none;" href="bloques/b0/index.html">▶  VER PRESENTACIÓN</a>
+    </div>
+    <div class="card">
+      <div class="card-icon">📖</div>
+      <div class="card-title">Bloque I · Nuevo Paradigma</div>
+      <div class="card-desc">5 ejes de la reforma, Beneficiario Controlador al 25%, Art. 18 Fracc. I–XI, Enfoque Basado en Riesgo y Ventana de 24 Horas. 13 diapositivas.</div>
+      <a class="play-btn" style="background:#0E7490;color:#fff;border:none;" href="bloques/b1/index.html">▶  VER PRESENTACIÓN</a>
+    </div>
+    <div class="card">
+      <div class="card-icon">🏢</div>
+      <div class="card-title">Bloque II · Fracciones del Grupo</div>
+      <div class="card-desc">Análisis ejecutivo de riesgo por fracción: Vehículos (Fracc. VIII), Inmobiliario (V/V Bis), Créditos (IV), Tarjetas (II). Protocolo 9 pasos. 11 diapositivas.</div>
+      <a class="play-btn" style="background:#B91C1C;color:#fff;border:none;" href="bloques/b2/index.html">▶  VER PRESENTACIÓN</a>
+    </div>
+    <div class="card">
+      <div class="card-icon">⚖️</div>
+      <div class="card-title">Bloque III · Sanciones &amp; Blindaje</div>
+      <div class="card-desc">Mapa de exposición, Art. 54 Bis (guillotina operativa), Art. 55 (escudo), frontera penal Art. 62 y los 5 comportamientos inquebrantables. 10 diapositivas.</div>
+      <a class="play-btn" style="background:#166534;color:#fff;border:none;" href="bloques/b3/index.html">▶  VER PRESENTACIÓN</a>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- TAB 2: CALCULADORA                     -->
+<!-- ═══════════════════════════════════════ -->
+<div id="tab-calc" class="tab-panel">
+  <br>
+  <div class="section-label">Calculadora de Sanciones</div>
+  <div class="tool-card">
+    <div class="card-icon">🧮</div>
+    <h3>Calculadora Interactiva — Arts. 52–55 LFPIORPI</h3>
+    <p>Selecciona la obligación incumplida del Art. 18, el nivel de sanción, número de infracciones y valor de la operación. Calcula automáticamente la multa con y sin beneficio del Art. 55 (condonación). Incluye tabla completa de umbrales de todas las fracciones del Art. 17.</p>
+    <a class="play-btn" href="calculadora/index.html" style="max-width:200px;">▶  ABRIR CALCULADORA</a>
+  </div>
+  <div class="tool-card">
+    <div class="card-icon">📥</div>
+    <h3>Versión Excel</h3>
+    <p>Archivo Excel con 4 pestañas: CONFIG (UMA), TABLA SANCIONES, CALCULADORA interactiva y UMBRALES ART. 17. Todas las fórmulas referenciadas a una sola celda de UMA para actualización instantánea.</p>
+    <a class="play-btn" href="calculadora/Calculadora_Sanciones_LFPIORPI_2026.xlsx" style="max-width:220px;" download>⬇  DESCARGAR EXCEL</a>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- TAB 3: JUEGO                           -->
+<!-- ═══════════════════════════════════════ -->
+<div id="tab-juego" class="tab-panel">
+  <br>
+  <div class="section-label">Juego interactivo</div>
+  <div class="tool-card">
+    <div class="card-icon">🎯</div>
+    <h3>Ahorcado LFPIORPI</h3>
+    <p>10 términos clave con dificultad progresiva: AVISO · UMBRAL · EFECTIVO · EXPEDIENTE · SANCION · FRACCION · CONTROLADOR · BENEFICIARIO · REINCIDENCIA · FIDEICOMISO</p>
+    <p style="margin-top:8px;">Cada palabra incluye su definición legal al resolverse. Funciona en celular y computadora.</p>
+    <a class="play-btn" href="juegos/Ahorcado_LFPIORPI_2026.html" style="max-width:200px;">▶  JUGAR AHORA</a>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- TAB 4: ACTIVIDADES ART. 17             -->
+<!-- ═══════════════════════════════════════ -->
+<div id="tab-act" class="tab-panel">
+  <br>
+  <div class="section-label">Actividades Vulnerables — Art. 17 LFPIORPI</div>
+  <div class="tbl-wrap">
+  <table class="ref">
+    <thead>
+      <tr>
+        <th>Fracc.</th>
+        <th>Actividad que genera la obligación</th>
+        <th>Umbral identificación</th>
+        <th>Umbral aviso</th>
+        <th>Prohib. efectivo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="frac">II<br><span style="font-size:9px;color:var(--muted)">Tarjetas servicios / crédito</span></td>
+        <td>Emisión o comercialización de tarjetas de servicios o de crédito, emitidas por personas distintas a entidades financieras</td>
+        <td>≥ 805 UMA/mes<br><span style="color:var(--muted);font-size:10px">$94,434.55</span></td>
+        <td>≥ 1,285 UMA<br><span style="color:var(--muted);font-size:10px">$150,743.35</span></td>
+        <td style="color:var(--muted);font-size:11px">No aplica</td>
+      </tr>
+      <tr>
+        <td class="frac">II<br><span style="font-size:9px;color:var(--muted)">Prepagadas / monederos</span></td>
+        <td>Emisión y comercialización de tarjetas prepagadas o monederos electrónicos, por personas distintas a entidades financieras</td>
+        <td>≥ 645 UMA/op<br><span style="color:var(--muted);font-size:10px">$75,664.95</span></td>
+        <td>≥ 645 UMA<br><span style="color:var(--muted);font-size:10px">$75,664.95</span></td>
+        <td style="color:var(--muted);font-size:11px">No aplica</td>
+      </tr>
+      <tr>
+        <td class="frac">IV<br><span style="font-size:9px;color:var(--muted)">Crédito / mutuo</span></td>
+        <td>Otorgamiento de créditos o préstamos por personas distintas a entidades financieras supervisadas (mutualistas, cajas, etc.)</td>
+        <td>Toda operación habitual</td>
+        <td>≥ 1,605 UMA<br><span style="color:var(--muted);font-size:10px">$188,282.55</span></td>
+        <td style="color:var(--muted);font-size:11px">No aplica</td>
+      </tr>
+      <tr>
+        <td class="frac">V<br><span style="font-size:9px;color:var(--muted)">Inmuebles</span></td>
+        <td>Compraventa o arrendamiento de inmuebles; intermediación inmobiliaria (agentes, gestores, corredores)</td>
+        <td>Toda operación habitual</td>
+        <td>≥ 8,025 UMA<br><span style="color:var(--muted);font-size:10px">$941,862.75</span></td>
+        <td>≥ 8,025 UMA<br><span style="color:var(--muted);font-size:10px">$941,862.75</span></td>
+      </tr>
+      <tr>
+        <td class="frac">V Bis<br><span style="font-size:9px;color:#fbbf24">Nueva 2025</span></td>
+        <td>Recepción de recursos económicos para la realización de desarrollos inmobiliarios (constructoras, desarrolladoras)</td>
+        <td>Toda recepción de recursos</td>
+        <td>≥ 8,025 UMA<br><span style="color:var(--muted);font-size:10px">$941,862.75</span></td>
+        <td style="color:var(--muted);font-size:11px">No aplica</td>
+      </tr>
+      <tr style="background:rgba(217,119,6,.06)">
+        <td class="frac">VIII<br><span style="font-size:9px;color:#fbbf24">Vehículos ★</span></td>
+        <td>Venta habitual de vehículos terrestres, aéreos, marítimos y maquinaria en general — incluyendo motocicletas y maquinaria industrial</td>
+        <td>≥ 3,210 UMA<br><span style="color:var(--muted);font-size:10px">$376,565.10</span></td>
+        <td>≥ 6,420 UMA<br><span style="color:var(--muted);font-size:10px">$753,130.20</span></td>
+        <td>≥ 3,210 UMA<br><span style="color:var(--muted);font-size:10px">$376,565.10</span></td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="nota">★ Fracciones principales aplicables a empresas de venta de vehículos y motocicletas.<br>
+  UMA 2026 = $117.31/día · DOF 31-01-2026. Los montos en pesos son referenciales.<br>
+  Fuente: Art. 17 LFPIORPI · DOF 16-07-2025.</p>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- TAB 5: OBLIGACIONES ART. 18            -->
+<!-- ═══════════════════════════════════════ -->
+<div id="tab-ob18" class="tab-panel">
+  <br>
+  <div class="section-label">Obligaciones del Art. 18 LFPIORPI — Aplicación por Fracción</div>
+  <div class="tbl-wrap">
+  <table class="ref">
+    <thead>
+      <tr>
+        <th>Fracc. Art.18</th>
+        <th>Obligación</th>
+        <th>Frac. II<br>Tarjetas</th>
+        <th>Frac. IV<br>Crédito</th>
+        <th>Frac. V<br>Inmueble</th>
+        <th>Frac. V Bis<br>Desarrollo</th>
+        <th>Frac. VIII<br>Vehículos</th>
+        <th>Umbral activador</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="frac">I</td>
+        <td>Identificar y conocer al cliente o usuario (KYC — Know Your Customer)</td>
+        <td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td>
+        <td>Según umbral de cada fracción</td>
+      </tr>
+      <tr>
+        <td class="frac">II</td>
+        <td>Solicitar información del dueño beneficiario de la operación</td>
+        <td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td>
+        <td>Cuando el cliente actúe por cuenta de tercero</td>
+      </tr>
+      <tr>
+        <td class="frac">III</td>
+        <td>Presentar avisos a la SHCP (UIF) dentro de los plazos establecidos</td>
+        <td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td>
+        <td>Frac. II ≥ 1,285 UMA · Frac. IV ≥ 1,605 · Frac. V/V Bis ≥ 8,025 · Frac. VIII ≥ 6,420 UMA</td>
+      </tr>
+      <tr>
+        <td class="frac">IV</td>
+        <td>Abstenerse de realizar la operación en efectivo por encima del umbral del Art. 32 (prohibición absoluta)</td>
+        <td style="color:var(--muted)">—</td>
+        <td style="color:var(--muted)">—</td>
+        <td>✅</td>
+        <td style="color:var(--muted)">—</td>
+        <td>✅</td>
+        <td>Frac. V ≥ 8,025 UMA · Frac. VIII ≥ 3,210 UMA</td>
+      </tr>
+      <tr>
+        <td class="frac">V</td>
+        <td>Resguardar y conservar la documentación e información de las operaciones (mínimo 5 años)</td>
+        <td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td>
+        <td>Toda operación sujeta a obligación</td>
+      </tr>
+      <tr>
+        <td class="frac">VI</td>
+        <td>Designar un Oficial de Cumplimiento ante la SHCP</td>
+        <td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td>
+        <td>Obligación continua — no tiene umbral monetario</td>
+      </tr>
+      <tr>
+        <td class="frac">VII</td>
+        <td>Elaborar, adoptar y observar políticas y criterios internos de identificación y conocimiento del cliente</td>
+        <td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td>
+        <td>Obligación continua — no tiene umbral monetario</td>
+      </tr>
+      <tr>
+        <td class="frac">VIII</td>
+        <td>Capacitar a directivos, funcionarios y empleados sobre PLD/FT (al menos una vez al año)</td>
+        <td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td>
+        <td>Obligación continua — no tiene umbral monetario</td>
+      </tr>
+      <tr>
+        <td class="frac">IX</td>
+        <td>Practicar auditorías internas o externas para verificar el cumplimiento del programa PLD/FT</td>
+        <td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td>
+        <td>Obligación continua — no tiene umbral monetario</td>
+      </tr>
+      <tr>
+        <td class="frac">X</td>
+        <td>Establecer mecanismos para inhibir el uso de la entidad como instrumento de lavado de dinero o financiamiento al terrorismo</td>
+        <td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td>
+        <td>Obligación continua — no tiene umbral monetario</td>
+      </tr>
+      <tr>
+        <td class="frac">XI</td>
+        <td>Utilizar los medios electrónicos autorizados por la SHCP para la recepción de pagos (sistema portal UIF)</td>
+        <td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td>
+        <td>Para presentación de avisos — obligación continua</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="nota">✅ = Obligación aplicable a esa fracción · — = No aplica expresamente a esa fracción.<br>
+  Las obligaciones continuas (sin umbral) se activan desde el momento en que la empresa realiza cualquier actividad vulnerable, independientemente del monto.<br>
+  Fuente: Art. 18 LFPIORPI · DOF 16-07-2025.</p>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- TAB 6: SANCIONES                       -->
+<!-- ═══════════════════════════════════════ -->
+<div id="tab-sanc" class="tab-panel">
+  <br>
+  <div class="section-label">Régimen de Sanciones — Arts. 52–62 LFPIORPI</div>
+  <div class="tbl-wrap">
+  <table class="ref">
+    <thead>
+      <tr>
+        <th>Nivel</th>
+        <th>Art.</th>
+        <th>Infracción</th>
+        <th style="text-align:right">Mín UMA</th>
+        <th style="text-align:right">Máx UMA</th>
+        <th style="text-align:right">Mín $MXN</th>
+        <th style="text-align:right">Máx $MXN</th>
+        <th>¿Cuándo aplica?</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="lvl-row-1">
+        <td rowspan="4"><span class="chip chip-green">N1</span></td>
+        <td>53 I</td>
+        <td>Aviso tardío — presentado fuera del plazo legal</td>
+        <td style="text-align:right">200</td><td style="text-align:right">2,000</td>
+        <td style="text-align:right">$23,462</td><td style="text-align:right">$234,620</td>
+        <td>Al detectar aviso con fecha fuera de plazo</td>
+      </tr>
+      <tr class="lvl-row-1">
+        <td>53 I</td>
+        <td>Aviso con errores u omisiones de forma</td>
+        <td style="text-align:right">200</td><td style="text-align:right">2,000</td>
+        <td style="text-align:right">$23,462</td><td style="text-align:right">$234,620</td>
+        <td>Al revisar datos del aviso presentado</td>
+      </tr>
+      <tr class="lvl-row-1">
+        <td>53 I</td>
+        <td>Aviso incompleto (datos no esenciales faltantes)</td>
+        <td style="text-align:right">200</td><td style="text-align:right">2,000</td>
+        <td style="text-align:right">$23,462</td><td style="text-align:right">$234,620</td>
+        <td>Al revisar integridad del aviso</td>
+      </tr>
+      <tr class="lvl-row-1">
+        <td>53 I</td>
+        <td>Incumplimiento de requerimiento de información de la SHCP</td>
+        <td style="text-align:right">200</td><td style="text-align:right">2,000</td>
+        <td style="text-align:right">$23,462</td><td style="text-align:right">$234,620</td>
+        <td>Al no atender solicitudes de la SHCP/UIF</td>
+      </tr>
+      <tr class="lvl-row-2">
+        <td rowspan="5"><span class="chip chip-amber">N2</span></td>
+        <td>53 II</td>
+        <td>Omisión total de aviso (no presentado)</td>
+        <td style="text-align:right">2,000</td><td style="text-align:right">10,000</td>
+        <td style="text-align:right">$234,620</td><td style="text-align:right">$1,173,100</td>
+        <td>Cuando la operación supera umbral y no se presentó aviso</td>
+      </tr>
+      <tr class="lvl-row-2">
+        <td>53 II</td>
+        <td>Falta de identificación del cliente (Art. 18 Fracc. I)</td>
+        <td style="text-align:right">2,000</td><td style="text-align:right">10,000</td>
+        <td style="text-align:right">$234,620</td><td style="text-align:right">$1,173,100</td>
+        <td>Al no recabar datos y documentos de identidad</td>
+      </tr>
+      <tr class="lvl-row-2">
+        <td>53 II</td>
+        <td>Falta de identificación del Beneficiario Controlador</td>
+        <td style="text-align:right">2,000</td><td style="text-align:right">10,000</td>
+        <td style="text-align:right">$234,620</td><td style="text-align:right">$1,173,100</td>
+        <td>Al no identificar a quien controla ≥ 25% de la entidad</td>
+      </tr>
+      <tr class="lvl-row-2">
+        <td>53 II</td>
+        <td>Ausencia de Oficial de Cumplimiento designado ante SHCP</td>
+        <td style="text-align:right">2,000</td><td style="text-align:right">10,000</td>
+        <td style="text-align:right">$234,620</td><td style="text-align:right">$1,173,100</td>
+        <td>En cualquier visita de verificación sin oficial registrado</td>
+      </tr>
+      <tr class="lvl-row-2">
+        <td>53 II</td>
+        <td>Sin manual de políticas / criterios / capacitación / auditoría interna</td>
+        <td style="text-align:right">2,000</td><td style="text-align:right">10,000</td>
+        <td style="text-align:right">$234,620</td><td style="text-align:right">$1,173,100</td>
+        <td>Al no acreditar programa PLD durante verificación</td>
+      </tr>
+      <tr class="lvl-row-3">
+        <td rowspan="2"><span class="chip chip-red">N3</span></td>
+        <td>53 III</td>
+        <td>Omisión total reiterada / acumulada de avisos</td>
+        <td style="text-align:right">10,000</td><td style="text-align:right">65,000</td>
+        <td style="text-align:right">$1,173,100</td><td style="text-align:right">$7,625,150</td>
+        <td>Patrón repetido de no presentar avisos; reincidencia</td>
+      </tr>
+      <tr class="lvl-row-3">
+        <td>32 / 53</td>
+        <td>Cobro de efectivo por encima del umbral — <strong>prohibición absoluta Art. 32</strong><br>
+          <span style="font-size:10px;color:rgba(255,255,255,.4)">Se aplica el MAYOR entre 65,000 UMA ó 10–100% del valor de la operación</span></td>
+        <td style="text-align:right">10,000</td><td style="text-align:right">65,000</td>
+        <td style="text-align:right">$1,173,100</td><td style="text-align:right">$7,625,150</td>
+        <td>Frac. V ≥ $941,862 · Frac. VIII ≥ $376,565 en efectivo</td>
+      </tr>
+      <tr class="lvl-special">
+        <td><span class="chip chip-purple">54 Bis</span></td>
+        <td>54 Bis</td>
+        <td>Suspensión temporal de operaciones con cliente investigado<br>
+          <span style="font-size:10px;color:rgba(255,255,255,.4)">Medida cautelar nueva DOF 2025 — puede aplicarse antes de resolución final</span></td>
+        <td colspan="4" style="text-align:center;color:rgba(255,255,255,.4)">Medida no monetaria — bloqueo operativo inmediato</td>
+        <td>Al inicio de investigación, sin esperar resolución</td>
+      </tr>
+      <tr class="lvl-green">
+        <td><span class="chip chip-green">Art. 55</span></td>
+        <td>55</td>
+        <td>Cumplimiento espontáneo — 1ª vez, antes de verificación SHCP</td>
+        <td colspan="4" style="text-align:center;color:#4ade80;font-weight:700">✓ 100% condonado · Subsecuentes: −50% de reducción</td>
+        <td>Solo si el sujeto notifica ANTES de que SHCP inicie revisión</td>
+      </tr>
+      <tr class="lvl-penal">
+        <td><span class="chip chip-red">Art. 62</span></td>
+        <td>62</td>
+        <td>Falsedad en información presentada a la SHCP — Delito Penal</td>
+        <td colspan="4" style="text-align:center;color:#f87171;font-weight:700">Prisión 2–8 años + multa penal para directivos y representantes</td>
+        <td>Al proporcionar datos falsos en avisos o durante visitas</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="nota">
+    UMA 2026 = $117.31/día · DOF 31-01-2026. Los montos en pesos son referenciales; el cálculo exacto se realiza con la UMA vigente al momento de la resolución.<br>
+    Art. 54: cada infracción se computa de forma <strong style="color:rgba(255,255,255,.45)">independiente</strong> — un error repetido en 10 operaciones equivale a 10 multas acumulables.<br>
+    Fuente: Arts. 52–62 LFPIORPI · DOF 16-07-2025.
+  </p>
+</div>
+
+<footer>LFPIORPI · DOF 16-07-2025 &nbsp;·&nbsp; UMA 2026 = $117.31/día &nbsp;·&nbsp; GMC360 / 360EDUCA · C.P. Maribel Vázquez Menchaca</footer>
+
+<script>
+function showTab(id) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  event.currentTarget.classList.add('active');
+}
+</script>
 </body>
 </html>
