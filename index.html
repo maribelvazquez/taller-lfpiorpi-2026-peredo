@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Taller LFPIORPI 2026 — Consorcio Peredo</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:    #0D2137;
+    --navy2:   #1C3557;
+    --blue:    #2E5A8E;
+    --red:     #B91C1C;
+    --darkred: #7F1D1D;
+    --amber:   #D97706;
+    --green:   #166534;
+    --teal:    #0E7490;
+    --cream:   #FDF8F0;
+    --lgray:   #F5F7FA;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'IBM Plex Sans', sans-serif;
+    background: var(--navy);
+    color: var(--cream);
+    min-height: 100vh;
+    padding: 0 16px 60px;
+    position: relative;
+  }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,0.025) 39px, rgba(255,255,255,0.025) 40px),
+      repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,0.025) 39px, rgba(255,255,255,0.025) 40px);
+    pointer-events: none; z-index: 0;
+  }
+
+  .wrap {
+    max-width: 860px; margin: 0 auto;
+    position: relative; z-index: 1;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 48px 0 36px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    margin-bottom: 40px;
+  }
+
+  .brand-line {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; letter-spacing: 3px;
+    color: rgba(255,255,255,0.35);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(36px, 6vw, 64px);
+    letter-spacing: 4px; line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .hero h1 span { color: var(--amber); }
+
+  .hero-sub {
+    font-size: 15px; color: rgba(255,255,255,0.55);
+    margin-bottom: 24px; line-height: 1.6;
+  }
+
+  .tags {
+    display: flex; flex-wrap: wrap; gap: 8px;
+  }
+
+  .tag {
+    padding: 4px 12px;
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 20px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px; letter-spacing: 1px;
+    color: rgba(255,255,255,0.5);
+  }
+
+  .tag.hi { border-color: var(--amber); color: var(--amber); }
+
+  /* ── SECCIÓN ── */
+  .section-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px; letter-spacing: 4px;
+    color: rgba(255,255,255,0.3);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+
+  .section { margin-bottom: 40px; }
+
+  /* ── CARDS ── */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 14px;
+  }
+
+  .card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.09);
+    border-radius: 10px;
+    padding: 20px 22px;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    display: flex; flex-direction: column; gap: 8px;
+    cursor: default;
+  }
+
+  .card.link {
+    cursor: pointer;
+  }
+
+  .card.link:hover {
+    background: rgba(255,255,255,0.08);
+    border-color: rgba(255,255,255,0.2);
+    transform: translateY(-2px);
+  }
+
+  .card-icon {
+    font-size: 22px; margin-bottom: 2px;
+  }
+
+  .card-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px; letter-spacing: 1px;
+    color: var(--cream);
+  }
+
+  .card-desc {
+    font-size: 12px; line-height: 1.5;
+    color: rgba(255,255,255,0.5);
+    flex: 1;
+  }
+
+  .card-meta {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px; letter-spacing: 1px;
+    color: rgba(255,255,255,0.25);
+    margin-top: 4px;
+  }
+
+  .card-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px; letter-spacing: 1px;
+    font-weight: 600;
+  }
+
+  .badge-word  { background: rgba(46,90,142,0.3); color: #93C5FD; border: 1px solid rgba(46,90,142,0.5); }
+  .badge-excel { background: rgba(22,101,52,0.3); color: #86EFAC; border: 1px solid rgba(22,101,52,0.5); }
+  .badge-html  { background: rgba(217,119,6,0.3); color: #FCD34D; border: 1px solid rgba(217,119,6,0.5); }
+
+  /* Card especial para el juego */
+  .card.game {
+    border-color: rgba(217,119,6,0.3);
+    background: rgba(217,119,6,0.06);
+  }
+
+  .card.game:hover {
+    border-color: var(--amber);
+    background: rgba(217,119,6,0.12);
+  }
+
+  .play-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    margin-top: 8px;
+    padding: 8px 18px;
+    background: var(--amber);
+    border-radius: 6px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 15px; letter-spacing: 2px;
+    color: var(--navy);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    width: fit-content;
+  }
+
+  .play-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(217,119,6,0.4);
+  }
+
+  /* ── TABLA TEMARIO ── */
+  .temario {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+
+  .temario th {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px; letter-spacing: 2px;
+    color: rgba(255,255,255,0.4);
+    text-align: left;
+    padding: 8px 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    text-transform: uppercase;
+  }
+
+  .temario td {
+    padding: 10px 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    color: rgba(255,255,255,0.75);
+    vertical-align: middle;
+  }
+
+  .temario tr:last-child td { border-bottom: none; }
+
+  .temario tr:hover td { background: rgba(255,255,255,0.03); }
+
+  .t-bloque {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 15px; letter-spacing: 1px;
+    color: var(--amber);
+    white-space: nowrap;
+  }
+
+  .t-tiempo {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; color: rgba(255,255,255,0.35);
+    white-space: nowrap;
+    text-align: right;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid rgba(255,255,255,0.07);
+    padding-top: 24px; margin-top: 20px;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 8px;
+  }
+
+  footer span {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px; letter-spacing: 1px;
+    color: rgba(255,255,255,0.2);
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="brand-line">Consorcio Peredo · Oaxaca 2026</div>
+    <h1>TALLER <span>LFPIORPI</span> 2026</h1>
+    <p class="hero-sub">
+      Materiales del taller ejecutivo presencial · Ley Federal para la Prevención e Identificación<br>
+      de Operaciones con Recursos de Procedencia Ilícita · DOF 16-07-2025
+    </p>
+    <div class="tags">
+      <span class="tag hi">UMA 2026 = $117.31/día</span>
+      <span class="tag">17 participantes</span>
+      <span class="tag">120 minutos</span>
+      <span class="tag">GMC360 / 360EDUCA</span>
+      <span class="tag">Maribel Vázquez Menchaca</span>
+    </div>
+  </div>
+
+  <!-- TEMARIO -->
+  <div class="section">
+    <div class="section-label">Temario del taller</div>
+    <table class="temario">
+      <thead>
+        <tr>
+          <th>Bloque</th>
+          <th>Contenido</th>
+          <th style="text-align:right">Duración</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="t-bloque">0</td><td>Choque GAFI — Lista gris México y reforma 2025</td><td class="t-tiempo">10 min</td></tr>
+        <tr><td class="t-bloque">I</td><td>Reformas transversales + Art. 18 completo</td><td class="t-tiempo">25 min</td></tr>
+        <tr><td class="t-bloque">II</td><td>Fracciones específicas del grupo (VIII, V, V Bis, IV, II)</td><td class="t-tiempo">30 min</td></tr>
+        <tr><td class="t-bloque">☕</td><td>Break</td><td class="t-tiempo">10 min</td></tr>
+        <tr><td class="t-bloque">III</td><td>Beneficiario Controlador + Sanciones + Demo calculadora</td><td class="t-tiempo">15 min</td></tr>
+        <tr><td class="t-bloque">IV</td><td>Juego interactivo: Ahorcado LFPIORPI</td><td class="t-tiempo">10 min</td></tr>
+        <tr><td class="t-bloque">—</td><td>Buffer / preguntas</td><td class="t-tiempo">20 min</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- JUEGO DESTACADO -->
+  <div class="section">
+    <div class="section-label">Actividad interactiva</div>
+    <div class="cards">
+      <div class="card game">
+        <div class="card-icon">🎯</div>
+        <div class="card-title">Ahorcado LFPIORPI</div>
+        <div class="card-desc">5 términos clave del taller: AVISO, UMBRAL, EFECTIVO, BENEFICIARIO, SANCION. Juego para cerrar la sesión con energía.</div>
+        <a class="play-btn" href="juegos/Ahorcado_LFPIORPI_2026.html">▶  JUGAR AHORA</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOQUES -->
+  <div class="section">
+    <div class="section-label">Materiales de contenido</div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">⚡</div>
+        <span class="card-badge badge-word">WORD</span>
+        <div class="card-title">Bloque 0 — Choque GAFI</div>
+        <div class="card-desc">México en la lista gris del GAFI. Contexto de la evaluación 2026 y los 5 ejes de la reforma.</div>
+        <div class="card-meta">bloques/Bloque0_Consorcio_Peredo.docx</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">📋</div>
+        <span class="card-badge badge-word">WORD</span>
+        <div class="card-title">Bloque I — Art. 18 Completo</div>
+        <div class="card-desc">Todas las obligaciones transversales. 8 definiciones nuevas, 11 fracciones del Art. 18, BC, UMA y checklist.</div>
+        <div class="card-meta">bloques/Bloque1_Consorcio_Peredo.docx</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">🏢</div>
+        <span class="card-badge badge-word">WORD</span>
+        <div class="card-title">Bloque II — Fracciones del Grupo</div>
+        <div class="card-desc">Fracc. VIII (ÁBACO · DINAMO), V, V Bis, IV y II. Perfil de riesgo, umbrales, tipologías y casos prácticos.</div>
+        <div class="card-meta">bloques/Bloque2_Consorcio_Peredo.docx</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">⚖️</div>
+        <span class="card-badge badge-word">WORD</span>
+        <div class="card-title">Bloque III — Sanciones</div>
+        <div class="card-desc">Arts. 52-62 LFPIORPI. Tres niveles de multa, Art. 54 Bis, cumplimiento espontáneo y vías de defensa.</div>
+        <div class="card-meta">bloques/Bloque3_Consorcio_Peredo.docx</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CALCULADORA -->
+  <div class="section">
+    <div class="section-label">Herramienta</div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">🧮</div>
+        <span class="card-badge badge-excel">EXCEL</span>
+        <div class="card-title">Calculadora de Sanciones</div>
+        <div class="card-desc">4 pestañas: CONFIG (UMA), Tabla Sanciones, Calculadora interactiva con Art. 55 y Umbrales Art. 17. 67 fórmulas, cero errores.</div>
+        <div class="card-meta">calculadora/Calculadora_Sanciones_LFPIORPI_2026.xlsx</div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <span>LFPIORPI DOF 16-07-2025 · UMA 2026 = $117.31/día</span>
+    <span>GMC360 / 360EDUCA · C.P. Maribel Vázquez Menchaca</span>
+    <span>Consorcio Peredo · Oaxaca · 2026</span>
+  </footer>
+
+</div>
+</body>
+</html>
